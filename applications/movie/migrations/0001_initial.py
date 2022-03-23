@@ -20,7 +20,6 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255)),
                 ('description', models.TextField()),
                 ('year', models.PositiveIntegerField()),
-                ('rating', models.PositiveIntegerField()),
                 ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='movie', to='category.category')),
             ],
         ),
@@ -29,7 +28,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(upload_to='movie_photo')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='image', to='movie.movie')),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='image', to='movie.movie')),
             ],
         ),
     ]

@@ -37,7 +37,7 @@ class MovieSerializer(serializers.ModelSerializer):
             rep['total_rating'] = sum(total_rating)/len(total_rating)
         else:
             rep['total_rating'] = ''
-        rep['images'] = MovieImageSerializer(MovieImage.objects.filter(product=instance.id), many=True,
+        rep['images'] = MovieImageSerializer(MovieImage.objects.filter(movie=instance.id), many=True,
                                                context=self.context).data
-        rep['reviews'] = ReviewSerializer(instance.review.filter(product=instance.id), many=True).data
+        rep['reviews'] = ReviewSerializer(instance.review.filter(movie=instance.id), many=True).data
         return rep

@@ -33,8 +33,9 @@ INSTALLED_APPS = [
     # modules
     'rest_framework',
     'rest_framework.authtoken',
-    # 'django_rest_passwordreset',
+    'django_rest_passwordreset',
     'django_filters',
+    'drf_yasg',
 
     # custom modules
     'applications.account',

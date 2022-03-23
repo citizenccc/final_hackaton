@@ -6,15 +6,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from applications.movie.models import Movie
 from applications.movie.serializers import MovieSerializer
 
-class MovieRatingFilter(rest_framework.FilterSet):
-    min_rating = rest_framework.NumberFilter(field_name='rating', lookup_expr='gte')
-    max_rating = rest_framework.NumberFilter(field_name='rating', lookup_expr='lte')
+class MovieYearFilter(rest_framework.FilterSet):
+    min_year = rest_framework.NumberFilter(field_name='year', lookup_expr='gte')
+    max_year = rest_framework.NumberFilter(field_name='year', lookup_expr='lte')
 
     class Meta:
         model = Movie
         fields = [
-            'min_rating',
-            'max_rating',
+            'min_year',
+            'max_year',
             'category',
         ]
 
@@ -23,7 +23,7 @@ class MovieListView(generics.ListAPIView):
     serializer_class = MovieSerializer
     pagination_class = PageNumberPagination
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filter_class = MovieRatingFilter
+    filter_class = MovieYearFilter
     search_fields = ['title', 'description', ]
 
     def get_serializer_context(self):
