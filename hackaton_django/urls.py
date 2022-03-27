@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/v1/category/', include('applications.category.urls')),
     path('api/v1/movie/', include('applications.movie.urls')),
     path('api/v1/review/', include('applications.review.urls')),
+    path('', include('chat.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
