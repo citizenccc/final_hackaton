@@ -17,6 +17,8 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+# from django.contrib.sites.models import Site
+# Site.objects.create(pk=1, domain='http://127.0.0.1:8000', name='http://127.0.0.1:8000')
 
 if __name__ == '__main__':
     main()
