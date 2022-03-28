@@ -31,6 +31,7 @@ urlpatterns = [
     path('api/v1/category/', include('applications.category.urls')),
     path('api/v1/movie/', include('applications.movie.urls')),
     path('api/v1/review/', include('applications.review.urls')),
+
     path('api/v1/swagger(.json|.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # reset password
@@ -40,4 +41,7 @@ urlpatterns = [
     path('', include('chat.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-    
+
+    path('', include('chat.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
