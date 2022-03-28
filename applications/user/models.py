@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 
+from applications.movie.models import Movie
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -47,6 +49,17 @@ class User(AbstractUser):
         activation_code = md5_object.hexdigest()
         self.activation_code = activation_code
         return self.activation_code
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    photo = models.ImageField(upload_to='users_photo', blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    favorite = models.ManyToManyField(Movie, related_name='favorite', blank=True)
+
+    def __str__(self):
+        return self.user.email
 
 from django.dispatch import receiver
 from django.urls import reverse

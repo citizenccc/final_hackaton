@@ -10,6 +10,8 @@ from drf_yasg import openapi
 from . import settings
 
 # swagger
+from .views import Home
+
 schema_view = get_schema_view(
    openapi.Info(
       title="Snippets API",
@@ -25,7 +27,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('applications.account.urls')),
+    path('account/', include('applications.user.urls')),
     path('api/v1/category/', include('applications.category.urls')),
     path('api/v1/movie/', include('applications.movie.urls')),
     path('api/v1/review/', include('applications.review.urls')),
@@ -33,6 +35,9 @@ urlpatterns = [
     path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # reset password
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('accounts/', include('allauth.urls')),
+    path('google/', Home.as_view(), name='home'), # new
+    path('', include('chat.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
     

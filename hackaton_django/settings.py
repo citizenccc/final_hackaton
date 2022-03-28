@@ -21,6 +21,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # existing backend
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
 
     # modules
     'rest_framework',
@@ -38,10 +43,20 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # custom modules
-    'applications.account',
+    'applications.user',
     'applications.review',
     'applications.movie',
     'applications.category',
+    'chat',
+
+    # social authentication
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',  # the social providers
+    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.twitter',
+
 
 ]
 
@@ -60,7 +75,7 @@ ROOT_URLCONF = 'hackaton_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'user.User'
 
 LANGUAGE_CODE = 'ru-ru'
 
@@ -155,3 +170,21 @@ REST_FRAMEWORK = {
     ]
 }       # REST отдаст нам токен
 
+# REDIS related settings
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+SITE_ID=1
+
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'

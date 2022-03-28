@@ -1,7 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from applications.account.models import User
+from applications.user.models import User
 from applications.movie.models import Movie
 
 
